@@ -139,11 +139,18 @@ async function handleContact(request, env) {
   );
 
   if (!emailResponse.ok) {
-    return Response.json(
-      { error: "Unable to send your enquiry. Please try again." },
-      { status: 502 }
-    );
-  }
+  const resendError = await emailResponse.text();
+
+  console.error("Resend error:", resendError);
+
+  return Response.json(
+    {
+      error: "Resend rejected the email.",
+      details: resendError
+    },
+    { status: 502 }
+  );
+}
 
   return Response.json({
     success: true,
