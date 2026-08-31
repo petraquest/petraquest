@@ -114,7 +114,7 @@ async function handleContact(request, env) {
       },
       body: JSON.stringify({
         from: "Petra Quest <hello@petraquest.io>",
-        to: ["hello@petraquest.io"],
+        to: ["viewpetraquest@gmail.com"],
         reply_to: email,
         subject: `New Petra Quest enquiry — ${name}`,
         html: `
