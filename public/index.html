@@ -11,6 +11,27 @@
     content="Petra Quest combines investment research, strategic analysis and opportunity development to help turn complex opportunities into investable propositions."
   >
 
+  <link rel="canonical" href="https://petraquest.io/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://petraquest.io/">
+  <meta property="og:title" content="Petra Quest | Investment Research, Strategy & Capital">
+  <meta
+    property="og:description"
+    content="We make complex opportunities investable."
+  >
+  <meta property="og:image" content="https://petraquest.io/og-image.svg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Petra Quest | Investment Research, Strategy & Capital">
+  <meta
+    name="twitter:description"
+    content="We make complex opportunities investable."
+  >
+  <meta name="twitter:image" content="https://petraquest.io/og-image.svg">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -264,34 +285,53 @@
 
           <article class="work-card">
             <span>REAL ASSETS</span>
-            <h3>Productive Real Estate</h3>
+
+            <h3>
+              Productive Real Estate
+            </h3>
+
             <p>
               Research and opportunity development across
               office, mixed-use and development assets.
             </p>
           </article>
 
+
           <article class="work-card">
             <span>HOSPITALITY</span>
-            <h3>Hospitality & Wellness</h3>
+
+            <h3>
+              Hospitality & Wellness
+            </h3>
+
             <p>
               Exploring opportunities where land, hospitality,
               wellness and destination economics intersect.
             </p>
           </article>
 
+
           <article class="work-card">
             <span>AGRICULTURE</span>
-            <h3>Agriculture & Processing</h3>
+
+            <h3>
+              Agriculture & Processing
+            </h3>
+
             <p>
               Connecting agricultural production with processing,
               branding and distribution.
             </p>
           </article>
 
+
           <article class="work-card">
             <span>RESEARCH</span>
-            <h3>Market Intelligence</h3>
+
+            <h3>
+              Market Intelligence
+            </h3>
+
             <p>
               Research designed to identify overlooked opportunities
               and test investment assumptions.
@@ -324,22 +364,27 @@
 
           <article>
             <span>01</span>
+
             <h3>
               Africa does not lack capital.
               It lacks enough bankable propositions.
             </h3>
           </article>
 
+
           <article>
             <span>02</span>
+
             <h3>
               The next real estate opportunity
               may not be another apartment building.
             </h3>
           </article>
 
+
           <article>
             <span>03</span>
+
             <h3>
               What makes an emerging-market
               opportunity investable?
@@ -359,24 +404,201 @@
 
       <div class="contact-inner">
 
-        <p class="eyebrow">
-          05 / CONTACT
-        </p>
+        <div class="contact-intro">
 
-        <h2>
-          Have an opportunity
-          worth exploring?
-        </h2>
+          <p class="eyebrow">
+            05 / CONTACT
+          </p>
 
-        <p>
-          Tell me what you're building, evaluating
-          or trying to understand.
-        </p>
+          <h2>
+            Have an opportunity
+            worth exploring?
+          </h2>
 
-        <a href="mailto:hello@petraquest.io"
-           class="contact-email">
-          hello@petraquest.io
-        </a>
+          <p>
+            Tell me what you're building, evaluating
+            or trying to understand.
+          </p>
+
+          <a
+            href="mailto:hello@petraquest.io"
+            class="contact-email"
+          >
+            hello@petraquest.io
+          </a>
+
+        </div>
+
+
+        <form id="contact-form" class="contact-form">
+
+          <div class="form-field">
+
+            <label for="name">
+              Name
+            </label>
+
+            <input
+              type="text"
+              id="name"
+              name="name"
+              autocomplete="name"
+              maxlength="100"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-field">
+
+            <label for="email">
+              Email
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              maxlength="254"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-field">
+
+            <label for="company">
+              Company
+            </label>
+
+            <input
+              type="text"
+              id="company"
+              name="company"
+              autocomplete="organization"
+              maxlength="150"
+            >
+
+          </div>
+
+
+          <div class="form-field">
+
+            <label for="interest">
+              What are you interested in?
+            </label>
+
+            <select
+              id="interest"
+              name="interest"
+            >
+
+              <option value="">
+                Select an option
+              </option>
+
+              <option value="Investment research">
+                Investment research
+              </option>
+
+              <option value="Capital strategy">
+                Capital strategy
+              </option>
+
+              <option value="Due diligence">
+                Due diligence
+              </option>
+
+              <option value="Opportunity development">
+                Opportunity development
+              </option>
+
+              <option value="Speaking">
+                Speaking
+              </option>
+
+              <option value="Partnership">
+                Partnership
+              </option>
+
+              <option value="Other">
+                Other
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-field">
+
+            <label for="message">
+              Message
+            </label>
+
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              maxlength="5000"
+              required
+            ></textarea>
+
+          </div>
+
+
+          <!-- Honeypot field for basic bot protection -->
+
+          <div
+            class="form-honeypot"
+            aria-hidden="true"
+          >
+
+            <label for="website">
+              Website
+            </label>
+
+            <input
+              type="text"
+              id="website"
+              name="website"
+              tabindex="-1"
+              autocomplete="off"
+            >
+
+          </div>
+
+
+          <button
+            type="submit"
+            class="button button-primary"
+          >
+
+            <span class="button-text">
+              Send enquiry →
+            </span>
+
+            <span
+              class="button-loading"
+              hidden
+            >
+              Sending…
+            </span>
+
+          </button>
+
+
+          <p
+            id="form-status"
+            class="form-status"
+            role="status"
+            aria-live="polite"
+          ></p>
+
+        </form>
 
       </div>
 
@@ -385,14 +607,21 @@
   </main>
 
 
+  <!-- FOOTER -->
+
   <footer class="footer">
 
     <div>
-      <strong>PETRA QUEST</strong>
+
+      <strong>
+        PETRA QUEST
+      </strong>
+
       <p>
         Building productive ecosystems,
         not just buildings.
       </p>
+
     </div>
 
     <p>
@@ -400,6 +629,9 @@
     </p>
 
   </footer>
+
+
+  <script src="script.js"></script>
 
 </body>
 </html>
