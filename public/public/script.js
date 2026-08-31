@@ -1,62 +1,75 @@
-// Petra Quest — site interactions
+const form = document.getElementById("contact-form");
+const status = document.getElementById("form-status");
+const button = form?.querySelector('button[type="submit"]');
+const buttonText = button?.querySelector(".button-text");
+const buttonLoading = button?.querySelector(".button-loading");
 
-document.addEventListener("DOMContentLoaded", () => {
+if (form) {
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-  // Smooth navigation
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    status.textContent = "";
+    status.removeAttribute("data-state");
 
-    link.addEventListener("click", event => {
+    button.disabled = true;
 
-      const targetId = link.getAttribute("href");
+    if (buttonText) buttonText.hidden = true;
+    if (buttonLoading) buttonLoading.hidden = false;
 
-      if (targetId === "#") return;
+    const formData = new FormData(form);
 
-      const target = document.querySelector(targetId);
+    const payload = {
+      name: formData.get("name")?.trim() || "",
+      email: formData.get("email")?.trim() || "",
+      company: formData.get("company")?.trim() || "",
+      interest: formData.get("interest")?.trim() || "",
+      message: formData.get("message")?.trim() || "",
+      website: formData.get("website")?.trim() || ""
+    };
 
-      if (!target) return;
-
-      event.preventDefault();
-
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
       });
 
-    });
+      let result = {};
 
-  });
+      try {
+        result = await response.json();
+      } catch {
+        result = {};
+      }
 
+      if (!response.ok) {
+        throw new Error(
+          result.error || "Something went wrong. Please try again."
+        );
+      }
 
-  // Simple reveal animation
-  const revealElements = document.querySelectorAll(
-    ".section, .capability, .work-card, .insights-list article"
-  );
+      status.textContent =
+        result.message ||
+        "Thank you. Your enquiry has been sent successfully.";
 
-  const observer = new IntersectionObserver(
-    entries => {
+      status.setAttribute("data-state", "success");
 
-      entries.forEach(entry => {
+      form.reset();
 
-        if (entry.isIntersecting) {
+    } catch (error) {
+      status.textContent =
+        error.message ||
+        "Unable to send your enquiry. Please try again.";
 
-          entry.target.classList.add("is-visible");
+      status.setAttribute("data-state", "error");
 
-          observer.unobserve(entry.target);
+    } finally {
+      button.disabled = false;
 
-        }
-
-      });
-
-    },
-    {
-      threshold: 0.12
+      if (buttonText) buttonText.hidden = false;
+      if (buttonLoading) buttonLoading.hidden = true;
     }
-  );
-
-
-  revealElements.forEach(element => {
-    element.classList.add("reveal");
-    observer.observe(element);
   });
-
-});
+}
