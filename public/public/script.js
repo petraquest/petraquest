@@ -8,68 +8,111 @@ if (form) {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    status.textContent = "";
-    status.removeAttribute("data-state");
+    console.log("Petra Quest contact form submitted.");
 
-    button.disabled = true;
+    if (status) {
+      status.textContent = "Sending your enquiry…";
+      status.setAttribute("data-state", "sending");
+    }
 
-    if (buttonText) buttonText.hidden = true;
-    if (buttonLoading) buttonLoading.hidden = false;
+    if (button) {
+      button.disabled = true;
+    }
+
+    if (buttonText) {
+      buttonText.hidden = true;
+    }
+
+    if (buttonLoading) {
+      buttonLoading.hidden = false;
+    }
 
     const formData = new FormData(form);
 
     const payload = {
-      name: formData.get("name")?.trim() || "",
-      email: formData.get("email")?.trim() || "",
-      company: formData.get("company")?.trim() || "",
-      interest: formData.get("interest")?.trim() || "",
-      message: formData.get("message")?.trim() || "",
-      website: formData.get("website")?.trim() || ""
+      name: String(formData.get("name") || "").trim(),
+      email: String(formData.get("email") || "").trim(),
+      company: String(formData.get("company") || "").trim(),
+      interest: String(formData.get("interest") || "").trim(),
+      message: String(formData.get("message") || "").trim(),
+      website: String(formData.get("website") || "").trim()
     };
 
     try {
+      console.log("Sending payload to /api/contact");
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Accept": "application/json"
         },
         body: JSON.stringify(payload)
       });
 
+      console.log("Worker response status:", response.status);
+
+      const responseText = await response.text();
+
+      console.log("Worker response:", responseText);
+
       let result = {};
 
       try {
-        result = await response.json();
+        result = JSON.parse(responseText);
       } catch {
-        result = {};
+        result = {
+          raw: responseText
+        };
       }
 
       if (!response.ok) {
         throw new Error(
-          result.error || "Something went wrong. Please try again."
+          result.details ||
+          result.error ||
+          `Request failed with status ${response.status}.`
         );
       }
 
-      status.textContent =
-        result.message ||
-        "Thank you. Your enquiry has been sent successfully.";
+      if (status) {
+        status.textContent =
+          result.message ||
+          "Your enquiry has been sent successfully.";
 
-      status.setAttribute("data-state", "success");
+        status.setAttribute("data-state", "success");
+      }
 
+      /*
+       * Only reset the form after a confirmed successful response.
+       */
       form.reset();
 
     } catch (error) {
-      status.textContent =
-        error.message ||
-        "Unable to send your enquiry. Please try again.";
 
-      status.setAttribute("data-state", "error");
+      console.error("Contact form error:", error);
+
+      if (status) {
+        status.textContent =
+          error.message ||
+          "Unable to send your enquiry. Please try again.";
+
+        status.setAttribute("data-state", "error");
+      }
 
     } finally {
-      button.disabled = false;
 
-      if (buttonText) buttonText.hidden = false;
-      if (buttonLoading) buttonLoading.hidden = true;
+      if (button) {
+        button.disabled = false;
+      }
+
+      if (buttonText) {
+        buttonText.hidden = false;
+      }
+
+      if (buttonLoading) {
+        buttonLoading.hidden = true;
+      }
+
     }
   });
 }
